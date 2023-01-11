@@ -43,6 +43,10 @@ app.get("/", (req, res) => {
 });
 // Restaurant router
 app.use("/apis", restaurantRouter);
+//Authen & User Rounter
+require("./routes/auth.router")(app);
+require("./routes/user.router")(app);
+
 
 // Running server
 app.listen(5000, () => {
