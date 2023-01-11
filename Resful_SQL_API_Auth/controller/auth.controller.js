@@ -48,6 +48,7 @@ exports.signup = (req, res) => {
     });
 };
 
+
 exports.signin = (req, res) => {
   //select * from user where username = req.body.username
   User.findOne({
@@ -79,14 +80,14 @@ exports.signin = (req, res) => {
       });
 
       let authorities = [];
-      user.getRole().then((roles) => {
+      user.getRoles().then((roles) => {
         for (let i = 0; i < roles.length; i++) {
           authorities.push("ROLE_" + roles[i].name.toUpperCase()); //toUpper ทำให้อักษรตัวใหญ่หมดทุกตัว ถ้าเป็นตัวเล็กก็ low
         }
         res.status(200).send({
-          id: user.id,
-          username: username,
-          email: email,
+            id: user.id,
+            username: user.username,
+            email: user.email,
           roles: authorities,
           accessToken: token,
         });
