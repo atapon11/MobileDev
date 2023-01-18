@@ -21,8 +21,10 @@ const login = async (username,password) =>{
     return response.data;
 }
 
-const logout = () =>{
+const logOut = () =>{
         localStorage.removeItem("user")
+    
+    return response.data;
 }
 
 const getCurrentUser = () =>{
@@ -32,7 +34,7 @@ const getCurrentUser = () =>{
 const AuthService = {
     register,
     login,
-    logout,
+    logOut,
     getCurrentUser
 };
 export default AuthService;

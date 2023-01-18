@@ -33,22 +33,28 @@ const Register = () => {
     },
   });
   const handleRegister = (username, email, password) => {
-    //alert(username, email, password);
+    //alert(username + email + password);
     AuthService.register(username, email, password).then(
-    (response) =>{
-      setMessage(response.data.message)
-      setSuccessfull(true)
-    },
-    (erorr) =>{
-      const resMessage = (erorr.response && 
-        erorr.response.data &&
-        erorr.response.data.message) ||
-        erorr.message ||
-        erorr.toString();
+      (response) => {
+            
+        setMessage(response.data.message);
+        setSuccessfull(true);
+        setInterval(()=>{
+          navigate("/login") 
+          window.location.reload();
+             }, 3000)
+      },
+      (error) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
         setMessage(resMessage);
         setSuccessfull(false);
-    }
-    )
+      }
+    );
   };
   return (
     <div className="col-md-12">
@@ -99,7 +105,7 @@ const Register = () => {
               ) : null}
               <label> Password </label>
               <Input
-                type="text"
+                type="password"
                 className="form-control"
                 name="password"
                 onChange={formik.handleChange}
@@ -112,9 +118,15 @@ const Register = () => {
               </button>
             </div>
           </div>
+
           {message && (
             <div className="form-group">
-              <div className={successfull?"alert alert-success" : "aler alert-danger"} role="alert">
+              <div
+                className={
+                  successfull ? "alert alert-success" : "alert alert-danger"
+                }
+                role="alert"
+              >
                 {message}
               </div>
             </div>
