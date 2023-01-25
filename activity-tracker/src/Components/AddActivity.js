@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import {useDispatch} from "react-redux";
 
 const AddActivity = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     duration: "",
@@ -9,6 +11,15 @@ const AddActivity = () => {
     e.persist();
     setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const addActivity = ()=>{
+    dispatch ({
+      type:"CREATE_ACTIVITY",
+      payload:{
+        name:data.name,
+        duration:data.duration
+      }
+    })
+  }
   return (
     <div className="add">
       <div className="input-section">
@@ -18,7 +29,7 @@ const AddActivity = () => {
           onChange={(e) => handleChange(e)}
           name="name"
           placeholder="Activity name ..."
-        ></input>
+        />
       </div>
       <div className="input-section">
         <p>Duration : </p>
@@ -27,9 +38,9 @@ const AddActivity = () => {
           onChange={(e) => handleChange(e)}
           name="duration"
           placeholder="Duration ..."
-        ></input>
+        />
       </div>
-      <button>Add Activity</button>
+      <button onClick={addActivity}>Add Activity</button>
     </div>
   );
 };

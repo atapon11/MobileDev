@@ -18,10 +18,7 @@ const activitiesReducer = (state=initalState, action) =>{
             }]
     case"DELETE_ACTIVITY":
     const copyState = [...state];
-    const i = copyState.findIndex(
-            (x)=>x.id === payload.id
-            );
-            copyState.splice(i, 1);
+    return copyState.filter((activity) => activity.id !== payload.id);
         default:
             return state;
     }
